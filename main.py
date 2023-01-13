@@ -14,14 +14,11 @@ marked = StringVar()
 def marked_item(event):
     clear_entries()
     id  = tree.selection()[0]
-    marked.set(id)
-    print(id)
-    if marked.get():
-        date_entry.insert(0,tree.item(id)["values"][0])
-        desc_entry.insert(0,tree.item(id)["values"][1])
-        amount_entry.insert(0,tree.item(id)["values"][2])
-        rec_entry.insert(0,tree.item(id)["values"][3])
-        paid_entry.insert(0,tree.item(id)["values"][4])
+    date_entry.insert(0,tree.item(id)["values"][0])
+    desc_entry.insert(0,tree.item(id)["values"][1])
+    amount_entry.insert(0,tree.item(id)["values"][2])
+    rec_entry.insert(0,tree.item(id)["values"][3])
+    paid_entry.insert(0,tree.item(id)["values"][4])
 
 def add_exp():
     date = date_entry.get()
