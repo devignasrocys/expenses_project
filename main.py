@@ -137,7 +137,6 @@ tree.heading(2, text="Description")
 tree.heading(3, text="Amount")
 tree.heading(4, text="Receiver")
 tree.heading(5, text="Mode of payment")
-tree.bind('<Button-1>', mark_item)
 # PACK ELEMENTS
 left_column.pack(side=LEFT, fill=BOTH)
 left_column_f1.pack(fill=X)
