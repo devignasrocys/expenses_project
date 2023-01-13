@@ -9,8 +9,6 @@ main.geometry("1500x800")
 message_var = StringVar()
 message_var.set("All expenses: 0")
 
-marked = StringVar()
-
 def marked_item(event):
     clear_entries()
     id  = tree.selection()[0]
