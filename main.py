@@ -9,6 +9,19 @@ main.geometry("1500x800")
 message_var = StringVar()
 message_var.set("All expenses: 0")
 
+marked = StringVar()
+
+def marked_item(event):
+    clear_entries()
+    id  = tree.selection()[0]
+    marked.set(id)
+    print(id)
+    if marked.get():
+        date_entry.insert(0,tree.item(id)["values"][0])
+        desc_entry.insert(0,tree.item(id)["values"][1])
+        amount_entry.insert(0,tree.item(id)["values"][2])
+        rec_entry.insert(0,tree.item(id)["values"][3])
+        paid_entry.insert(0,tree.item(id)["values"][4])
 
 def add_exp():
     date = date_entry.get()
@@ -80,10 +93,21 @@ def clear_entries():
     rec_entry.delete(0, END)
     paid_entry.delete(0, END)
 
+def edit_exp():
+    id  = tree.selection()[0]
+    tree.item(id, values=(
+        date_entry.get(),
+        desc_entry.get(),
+        amount_entry.get(),
+        rec_entry.get(),
+        paid_entry.get()
+    ))
+    sum_exp()
+    clear_entries()
 
 # FRAMES
 left_column = Frame(main, bg='#aa3f3f')
-right_column = Frame(main, bg='')
+right_column = Frame(main)
 left_column_f1 = Frame(left_column, bg='#aa3f3f')
 left_column_f2 = Frame(left_column, bg='#aa3f3f')
 left_column_f3 = Frame(left_column, bg='#aa3f3f')
@@ -124,6 +148,8 @@ save_exp_as_btn = Button(right_column_f1, text="Save to file", width=14, height=
                          font='Helvetica 12 bold', fg="white", bg='brown', command=save_file).place(x=390, y=6)
 load_file_btn = Button(right_column_f1, text="Load file", width=14, height=2,
                        font='Helvetica 12 bold', fg="white", bg='brown', command=load_file).place(x=575, y=6)
+edit_exp_btn = Button(left_column, text="Edit", width=25, height=2,
+                       font='Helvetica 15 bold', fg="white", bg='brown',bd=3, command=edit_exp)
 # TREE
 tree = Treeview(right_column_f2, selectmode=BROWSE, columns=(1, 2, 3, 4, 5))
 tree.column("#0", width=0, stretch='no')
@@ -137,6 +163,7 @@ tree.heading(2, text="Description")
 tree.heading(3, text="Amount")
 tree.heading(4, text="Receiver")
 tree.heading(5, text="Mode of payment")
+tree.bind("<Button-1>", marked_item)
 # PACK ELEMENTS
 left_column.pack(side=LEFT, fill=BOTH)
 left_column_f1.pack(fill=X)
@@ -160,6 +187,7 @@ amount_entry.pack(side=RIGHT)
 rec_entry.pack(side=RIGHT)
 paid_entry.pack(side=RIGHT)
 add_btn.pack()
+edit_exp_btn.pack()
 tree.pack(fill=BOTH, expand=True)
 
 main.mainloop()
