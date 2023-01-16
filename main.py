@@ -42,12 +42,14 @@ def delete_exp():
     if messagebox.askquestion("Cofirmation", "Do you wanna delete this expense? ") == 'yes':
         tree.delete(tree.focus())
         sum_exp()
+    clear_entries()
 
 def delete_all_exp():
     if messagebox.askquestion("Confirmation", "Do you wanna clear all expenses? ") == 'yes':
         for exp in tree.get_children():
             tree.delete(exp)
         message_var.set("All expenses: 0")
+    clear_entries()
 
 def save_file():
     file_name = filedialog.asksaveasfilename(defaultextension=".pkl")
